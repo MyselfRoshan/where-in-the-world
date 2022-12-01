@@ -1,0 +1,20 @@
+@use '../abstracts/variables' as *;
+
+:root {
+  // Colors
+  @each $mode, $colors in $theme {
+    @if $mode == light {
+      @each $lightness, $value in $colors {
+        --primary-clr-#{$lightness}: #{$value};
+      }
+    }
+  }
+  //   Fonts
+  @each $size, $value in $font-size {
+    --fs-#{$size}: #{$value};
+  }
+
+  @each $weight, $value in $font-weight {
+    --fw-#{$weight}: #{$value};
+  }
+}

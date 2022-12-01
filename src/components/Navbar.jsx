@@ -5,7 +5,7 @@ import DarkModeIcon from '../assets/icons/dark-mode.svg';
 function Navbar() {
   const [themeToggle, setThemeToggle] = useState(LightModeIcon);
 
-  const themeName = themeToggle === LightModeIcon ? 'Light Mode' : 'DarkMode';
+  const themeName = themeToggle === LightModeIcon ? 'Light' : 'Dark';
 
   function themeToggler() {
     setThemeToggle((prethemeToggle) =>
@@ -15,13 +15,18 @@ function Navbar() {
 
   return (
     <header>
-      <nav>
-        <span className="logo">Where in the world?</span>
-        <button className="theme-toggler" onClick={themeToggler}>
-          <img src={themeToggle} alt="" />
-          <span>{themeName}</span>
-        </button>
-      </nav>
+      <div className="grid-container">
+        <nav className="nav-bar">
+          <a className="logo" id="home" href="#home">
+            Where in the world?
+          </a>
+
+          <button className="theme-toggler" onClick={themeToggler}>
+            <img src={themeToggle} alt="" />
+            <span>{themeName} Mode</span>
+          </button>
+        </nav>
+      </div>
     </header>
   );
 }

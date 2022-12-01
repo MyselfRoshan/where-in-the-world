@@ -1,0 +1,33 @@
+@use '../base/root' as *;
+
+.country {
+  &-card {
+    --card-corner: 8px;
+    max-width: 16.5rem;
+    min-height: 21.25rem;
+    background-color: hsl(var(--primary-clr-200));
+    border-radius: var(--card-corner);
+    box-shadow: 0.5rem 0.5rem 1rem hsl(var(--primary-clr-500) / 0.175);
+
+    &-body {
+      padding: 1.25rem 1.25rem 2rem 1.25rem;
+    }
+
+    span {
+      font-weight: var(--fw-300);
+    }
+  }
+
+  &-flag {
+    min-width: 16.5rem;
+    min-height: 9.875rem;
+    max-height: 9.875rem;
+    border-radius: var(--card-corner) var(--card-corner) 0 0;
+  }
+
+  &-name {
+    margin-bottom: 1rem;
+    font-size: var(--fs-500);
+    font-weight: var(--fw-800);
+  }
+}

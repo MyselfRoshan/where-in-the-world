@@ -1,3 +1,12 @@
-body {
-  background-color: blueviolet;
-}
+// Base
+@use './base/root';
+@use './base/reset';
+
+// Utilities
+@use './utilities/color';
+@use './utilities/container';
+
+// Components
+@use './components/navbar';
+@use './components/search-filter';
+@use './components/country-card';

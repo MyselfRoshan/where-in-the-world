@@ -1,0 +1,43 @@
+@use '../base/root';
+
+header {
+  background-color: hsl(var(--primary-clr-200));
+  box-shadow: 1rem 0 1rem hsl(var(--primary-clr-500) / 0.25);
+}
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 5rem;
+  max-height: 10rem;
+  height: calc(12rem - 9vw);
+
+  .logo {
+    text-decoration: none;
+    font-size: clamp(var(--fs-500), 3vw, var(--fs-600));
+    font-weight: var(--fw-800);
+    color: hsl(var(--primary-clr-500));
+
+    &:hover {
+      scale: 1.02;
+    }
+    &:is(:hover, :visited) {
+      color: inherit;
+    }
+  }
+
+  .theme-toggler {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+    border: none;
+    background: transparent;
+
+    & > span {
+      @media (width< 36rem) {
+        display: none;
+      }
+    }
+  }
+}
