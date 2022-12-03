@@ -2,7 +2,7 @@ import React from 'react';
 
 function CountryCard(props) {
   return (
-    <article className="country-card">
+    <article className="country-card" id={props.id}>
       <a href="http://" target="_blank" rel="noopener noreferrer">
         <img className="country-flag" src={props.flag} alt="" />
       </a>

@@ -3,14 +3,12 @@ import LightModeIcon from '../assets/icons/light-mode.svg';
 import DarkModeIcon from '../assets/icons/dark-mode.svg';
 
 function Navbar() {
-  const [themeToggle, setThemeToggle] = useState(LightModeIcon);
-
-  const themeName = themeToggle === LightModeIcon ? 'Light' : 'Dark';
+  const [theme, setTheme] = useState({ name: 'Light', icon: LightModeIcon });
 
   function themeToggler() {
-    setThemeToggle((prethemeToggle) =>
-      prethemeToggle === LightModeIcon ? DarkModeIcon : LightModeIcon,
-    );
+    theme.name === 'Light'
+      ? setTheme({ name: 'Dark', icon: DarkModeIcon })
+      : setTheme({ name: 'Light', icon: LightModeIcon });
   }
 
   return (
@@ -22,8 +20,8 @@ function Navbar() {
           </a>
 
           <button className="theme-toggler" onClick={themeToggler}>
-            <img src={themeToggle} alt="" />
-            <span>{themeName} Mode</span>
+            <img src={theme.icon} alt="" />
+            <span>{theme.name} Mode</span>
           </button>
         </nav>
       </div>
