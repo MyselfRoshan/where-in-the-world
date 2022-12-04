@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import LightModeIcon from '../assets/icons/light-mode.svg';
 import DarkModeIcon from '../assets/icons/dark-mode.svg';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
   const [theme, setTheme] = useState({ name: 'Light', icon: LightModeIcon });
@@ -15,9 +16,9 @@ function Navbar() {
     <header>
       <div className="grid-container">
         <nav className="nav-bar">
-          <a className="logo" id="home" href="#home">
+          <Link to="/" className="logo">
             Where in the world?
-          </a>
+          </Link>
 
           <button className="theme-toggler" onClick={themeToggler}>
             <img src={theme.icon} alt="" />
