@@ -1,13 +1,27 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function CountryCard(props) {
+  console.log(props);
+  const countryDetailsObj = {
+    flag: props.flags.svg,
+    name: props.name,
+    population: props.population,
+    region: props.region,
+    subRegion: props.subregion,
+    capital: props.capital,
+    topLevelDomain: props.tld,
+    currencies: props.currencies,
+    languages: props.languages,
+    borders: props.borders,
+  };
   return (
-    <article className="country-card" id={props.id}>
-      <a href="http://" target="_blank" rel="noopener noreferrer">
-        <img className="country-flag" src={props.flag} alt="" />
-      </a>
+    <article className="country-card" id={props.flag}>
+      <Link to="/CountryDetails" state={countryDetailsObj}>
+        <img className="country-flag" src={props.flags.png} alt="" />
+      </Link>
       <div className="country-card-body">
-        <h2 className="country-name">{props.name}</h2>
+        <h2 className="country-name">{props.name.common}</h2>
         <div>
           <p className="country-population">
             Population: <span>{props.population}</span>
