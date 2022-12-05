@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Language from './Language';
+import BorderingCountry from './BorderingCountry';
 import BackIcon from '../assets/icons/arrow-back.svg';
 import { Link, useLocation } from 'react-router-dom';
 
 function CountryDetails() {
   const countryDetailObj = useLocation().state;
   console.log(countryDetailObj);
-  // ?For native name
+
+  // For native name
   let commonNativeName, officialNativeName;
   const nativeName = countryDetailObj.name.nativeName;
   Object.entries(nativeName).forEach(([key, value]) => {
@@ -19,15 +22,21 @@ function CountryDetails() {
     currencyName = value.name;
     currencySymbol = value.symbol;
   });
-  // For Languages
-  // ? Soesn't work for multi languages
-  const languageObj = countryDetailObj.languages;
-  let languageName;
-  Object.entries(languageObj).forEach(([key, value]) => {
-    languageName = value;
-    console.log(languageName);
-  });
 
+  // For Languages
+  const languageObj = countryDetailObj.languages;
+  // let languages = countryDetailObj{{key,value}};
+  const languages = Object.values(languageObj).map((item, index) => (
+    <Language key={index} number={index} name={item} />
+  ));
+  // Ror bordering countries
+  let borderingCountries;
+  if (countryDetailObj.borders === undefined) {
+  } else {
+    borderingCountries = countryDetailObj.borders.map((countryCode, index) => (
+      <BorderingCountry key={index} countryCode={countryCode} />
+    ));
+  }
   return (
     <section id={countryDetailObj.name.common}>
       <Link to="/">
@@ -41,7 +50,6 @@ function CountryDetails() {
           <dd>
             {officialNativeName} ({commonNativeName})
           </dd>
-          {/* <dd>{countryDetailObj.name.nativeName.ara.common}</dd> */}
           <dt>Population:</dt>
           <dd>{countryDetailObj.population}</dd>
           <dt>Region:</dt>
@@ -59,15 +67,9 @@ function CountryDetails() {
             {currencyName} ({currencySymbol})
           </dd>
           <dt>Languages</dt>
-          <dd>{languageName[1]}</dd>
+          {languages}
         </dl>
-        {/* <dt>Languages</dt>
-          <dd>{countryDetailObj.languages}</dd> */}
-        <div className="bordering-countries">
-          <span>France</span>
-          <span>Germany</span>
-          <span>Netherlands</span>
-        </div>
+        {<div className="bordering-countries">{borderingCountries}</div>}
       </article>
     </section>
   );

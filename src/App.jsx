@@ -42,19 +42,8 @@ function App() {
     return () => clearTimeout(apiCallTimer);
   }, [searchType]);
 
-  const Countries = countriesInfo.map((countryInfo) => {
-    return (
-      <CountryCard
-        {...countryInfo}
-        // key={countryInfo.flag}
-        // id={countryInfo.flag}
-        // flag={countryInfo.flags.png}
-        // name={countryInfo.name.common}
-        // population={countryInfo.population}
-        // region={countryInfo.region}
-        // capital={countryInfo.capital}
-      />
-    );
+  const Countries = countriesInfo.map((countryInfo, index) => {
+    return <CountryCard key={index} {...countryInfo} />;
   });
   return (
     <div className="container">
