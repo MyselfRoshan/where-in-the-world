@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function CountryCard(props) {
-  console.log(props);
   const countryDetailsObj = {
     flag: props.flags.svg,
     name: props.name,
@@ -21,7 +20,13 @@ function CountryCard(props) {
         <img className="country-flag" src={props.flags.png} alt="" />
       </Link>
       <div className="country-card-body">
-        <h2 className="country-name">{props.name.common}</h2>
+        <Link
+          className="country-name"
+          to="/CountryDetails"
+          state={countryDetailsObj}
+        >
+          <h2>{props.name.common}</h2>
+        </Link>
         <div>
           <p className="country-population">
             Population: <span>{props.population}</span>

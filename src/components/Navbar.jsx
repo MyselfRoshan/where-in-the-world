@@ -1,27 +1,41 @@
-import React, { useState } from 'react';
-import LightModeIcon from '../assets/icons/light-mode.svg';
-import DarkModeIcon from '../assets/icons/dark-mode.svg';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { searchTypeContext } from '../App';
 
 function Navbar() {
-  const [theme, setTheme] = useState({ name: 'Light', icon: LightModeIcon });
-
+  const setSearchType = useContext(searchTypeContext);
+  const [theme, setTheme] = useState({ name: 'Light', icon: 'light_mode' });
+  const localStorage = window.localStorage;
+  useEffect(() => {
+    const name = localStorage.getItem('globalTheme');
+    const icon = localStorage.getItem('globalThemeIcon');
+    setTheme({ name: name, icon: icon });
+  }, []);
+  console.log(theme);
   function themeToggler() {
-    theme.name === 'Light'
-      ? setTheme({ name: 'Dark', icon: DarkModeIcon })
-      : setTheme({ name: 'Light', icon: LightModeIcon });
+    if (theme.name === 'Light') {
+      localStorage.setItem('globalTheme', 'Dark');
+      localStorage.setItem('globalThemeIcon', 'dark_mode');
+      setTheme({ name: 'Dark', icon: 'dark_mode' });
+    } else {
+      localStorage.setItem('globalTheme', 'Light');
+      localStorage.setItem('globalThemeIcon', 'light_mode');
+      setTheme({ name: 'Light', icon: 'light_mode' });
+    }
   }
-
   return (
     <header>
       <div className="grid-container">
         <nav className="nav-bar">
-          <Link to="/" className="logo">
+          <Link to="/" className="logo" onClick={() => setSearchType('all')}>
             Where in the world?
           </Link>
 
-          <button className="theme-toggler" onClick={themeToggler}>
-            <img src={theme.icon} alt="" />
+          <button
+            className={`theme-toggler ${theme.name}`}
+            onClick={themeToggler}
+          >
+            <span className="material-icons">{theme.icon}</span>
             <span>{theme.name} Mode</span>
           </button>
         </nav>

@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Language from './Language';
 import BorderingCountry from './BorderingCountry';
-import BackIcon from '../assets/icons/arrow-back.svg';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { searchTypeContext } from '../App';
 
-function CountryDetails() {
+function CountryDetails(props) {
+  const setSearchType = useContext(searchTypeContext);
   const countryDetailObj = useLocation().state;
-  console.log(countryDetailObj);
+  const navigate = useNavigate();
 
   // For native name
   let commonNativeName, officialNativeName;
@@ -33,45 +34,109 @@ function CountryDetails() {
   let borderingCountries;
   if (countryDetailObj.borders === undefined) {
   } else {
-    borderingCountries = countryDetailObj.borders.map((countryCode, index) => (
-      <BorderingCountry key={index} countryCode={countryCode} />
-    ));
+    // Fectch bordering countries name from borders code
+    let countryCodes = '';
+    countryDetailObj.borders.forEach((countryCode, index) =>
+      !index
+        ? (countryCodes += countryCode)
+        : (countryCodes += `,${countryCode}`),
+    );
+    /* To remove Warning: Cannot update a component (`App`) 
+       while rendering a different component (`CountryDetails`).
+       To locate the bad setState() call inside `CountryDetails` */
+    useEffect(() => {
+      setSearchType(`alpha?codes=${countryCodes}`);
+    }, [countryCodes]);
+    borderingCountries = props.borderingCountries.map(
+      (borderingCountry, index) => (
+        <BorderingCountry key={index} {...borderingCountry} />
+      ),
+    );
   }
   return (
-    <section id={countryDetailObj.name.common}>
-      <Link to="/">
-        <img src={BackIcon} alt="" /> Back
-      </Link>
-      <article>
-        <img src={countryDetailObj.flag} alt="" />
+    <article
+      id={countryDetailObj.name.common}
+      className="grid-container-details country-details"
+    >
+      <div className="back-btn__wrapper">
+        <button
+          className="back-btn"
+          onClick={() => {
+            // To go back to the main Page
+            setSearchType('all');
+            navigate('/');
+          }}
+        >
+          <span className="material-icons">keyboard_backspace</span> Back
+        </button>
+      </div>
+      <img
+        className="country-details__flag"
+        src={countryDetailObj.flag}
+        alt=""
+      />
+      <div className="country-details__body">
         <h2>{countryDetailObj.name.common}</h2>
-        <dl>
-          <dt>Native Name:</dt>
-          <dd>
-            {officialNativeName} ({commonNativeName})
-          </dd>
-          <dt>Population:</dt>
-          <dd>{countryDetailObj.population}</dd>
-          <dt>Region:</dt>
-          <dd>{countryDetailObj.region}</dd>
-          <dt>Sub Region:</dt>
-          <dd>{countryDetailObj.subRegion}</dd>
-          <dt>Capital:</dt>
-          <dd>{countryDetailObj.capital}</dd>
-        </dl>
-        <dl>
-          <dt>Top Level Doamin:</dt>
-          <dd>{countryDetailObj.topLevelDomain}</dd>
-          <dt>Currencies:</dt>
-          <dd>
-            {currencyName} ({currencySymbol})
-          </dd>
-          <dt>Languages</dt>
-          {languages}
-        </dl>
-        {<div className="bordering-countries">{borderingCountries}</div>}
-      </article>
-    </section>
+        <section>
+          <ul className="equal-columns">
+            <li>
+              <h3 className="country-details__body-heading">Native Name:</h3>
+              <span className="country-details__body-info">
+                {officialNativeName} ({commonNativeName})
+              </span>
+            </li>
+            <li>
+              <h3 className="country-details__body-heading">Population:</h3>
+              <span className="country-details__body-info">
+                {countryDetailObj.population}
+              </span>
+            </li>
+            <li>
+              <h3 className="country-details__body-heading">Region:</h3>
+              <span className="country-details__body-info">
+                {countryDetailObj.region}
+              </span>
+            </li>
+            <li>
+              <h3 className="country-details__body-heading">Sub Region:</h3>
+              <span className="country-details__body-info">
+                {countryDetailObj.subRegion}
+              </span>
+            </li>
+            <li>
+              <h3 className="country-details__body-heading">Capital: </h3>
+              <span className="country-details__body-info">
+                {countryDetailObj.capital}
+              </span>
+            </li>
+          </ul>
+          <ul className="equal-columns">
+            <li>
+              <h3 className="country-details__body-heading">
+                Top Level Doamin:
+              </h3>
+              <span className="country-details__body-info">
+                {countryDetailObj.topLevelDomain}
+              </span>
+            </li>
+            <li>
+              <h3 className="country-details__body-heading">Currencies:</h3>
+              <span className="country-details__body-info">
+                {currencyName} ( {currencySymbol} )
+              </span>
+            </li>
+            <li>
+              <h3 className="country-details__body-heading">Languages:</h3>{' '}
+              {languages}
+            </li>
+          </ul>
+        </section>
+        <div className="bordering-countries">
+          <h3 className="country-details__body-heading">Border Countries:</h3>
+          {borderingCountries}
+        </div>
+      </div>
+    </article>
   );
 }
 export default CountryDetails;

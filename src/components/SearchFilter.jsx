@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import searchIcon from '../assets/icons/search.svg';
 
 function SearchFilter({ setSearchType }) {
   function searchFilter(name) {
-    console.log(name);
     name === '' ? setSearchType('all') : setSearchType(`name/${name}`);
   }
 
@@ -14,7 +12,7 @@ function SearchFilter({ setSearchType }) {
   return (
     <div className="grid-container-search-filter">
       <div className="search-container">
-        <img className="search-icon" src={searchIcon} alt="" />
+        <span className="search-icon material-icons">search</span>
         <input
           type="text"
           name=""
@@ -30,6 +28,8 @@ function SearchFilter({ setSearchType }) {
         id=""
         onChange={(e) => regionFilter(e.target.value)}
       >
+        {/* ? Change color and icon on click */}
+        {/* <span className="material-icons">expand_less</span> */}
         <option value="all">Filter by Region</option>
         <option value="africa">Africa</option>
         <option value="america">America</option>

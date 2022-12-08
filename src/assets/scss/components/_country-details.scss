@@ -1,0 +1,117 @@
+@use '../base/root';
+
+.back-btn {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: start;
+  gap: 0.25rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: hsl(var(--primary-clr-200));
+  box-shadow: 0 0 1.5rem hsl(0 0% 0% / 0.25);
+  color: hsl(var(--primary-clr-500));
+  text-decoration: none;
+  font-weight: var(--fw-300);
+  margin-block-start: clamp(2rem, 4.5vw, 2.5rem);
+  margin-block-end: clamp(3.5rem, 6vw, 4rem);
+
+  &:is(:hover, :focus) {
+    scale: 1.15;
+    transition: scale 500ms ease-in-out;
+  }
+
+  &__wrapper {
+    @media (width>39.687rem) {
+      grid-column: span 2;
+    }
+  }
+
+  & > img {
+    width: 30px;
+    aspect-ratio: 1;
+  }
+}
+
+.country-details {
+  margin-bottom: 20rem;
+  &__flag {
+    max-width: 35.125rem;
+    width: 100%;
+    place-self: center;
+    padding-block-end: 3.5rem;
+    @media (width>71.3125rem) {
+      padding-block-end: 0rem;
+    }
+  }
+  h2 {
+    margin-bottom: 1rem;
+    font-size: var(--fs-500);
+    font-weight: var(--fw-800);
+  }
+  .equal-columns li {
+    margin-bottom: 0.5rem;
+  }
+  &__body {
+    grid-column: 2/-1;
+
+    h2 {
+      margin-block-start: clamp(1.5rem, 2.5vw, 3rem);
+      margin-block-end: clamp(1rem, 1.6vw + 0.1rem, 2.5rem);
+    }
+    section {
+      @media (width>51.25rem) {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+    }
+
+    &-heading {
+      display: inline;
+      font-weight: var(--fw-800);
+      margin-right: 0.3rem;
+    }
+    &-info {
+      font-weight: var(--fw-300);
+    }
+  }
+  .equal-columns:first-of-type {
+    grid-column: 1/2;
+    @media (width < 71.25rem) {
+      margin-bottom: 3rem;
+    }
+  }
+}
+
+.bordering-countries {
+  margin-block-start: clamp(2rem, 4.5vw, 5rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: start;
+}
+.bordering-country {
+  cursor: pointer;
+  background-color: hsl(var(--primary-clr-200));
+  color: hsl(var(--primary-clr-500));
+  text-decoration: none;
+  box-shadow: 0 0 1.5rem hsl(0 0% 0% / 0.25);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+
+  &:hover {
+    scale: 1.15;
+    transition: scale 500ms ease-in-out;
+    font-weight: var(--fw-600);
+  }
+}
+
+// For Nepal only
+#Nepal {
+  .country-details__flag {
+    width: clamp(19rem, 27vw, 25.25rem);
+  }
+}
