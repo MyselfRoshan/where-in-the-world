@@ -1,10 +1,14 @@
 .grid-container {
+  --min-side-gap: 1vw;
   display: grid;
   grid-template-columns:
-    minmax(min(5rem, 8vw, 6%), 1fr)
+    minmax(min(5rem, var(--min-side-gap)), 1fr)
     minmax(21.437rem, 90rem)
-    minmax(min(5rem, 8vw, 6%), 1fr);
+    minmax(min(5rem, var(--min-side-gap)), 1fr);
   gap: var(--gap, 1rem);
+  @media (width > 39.562rem) {
+    --min-side-gap: 8vw;
+  }
 
   > * {
     grid-column: 2/3;
@@ -19,10 +23,20 @@
 
   &-card {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(15.25rem, 1fr));
     gap: 2rem;
     place-items: center;
     margin-block: 2.5rem;
+    @media (width>39.687rem) {
+      grid-template-columns: repeat(auto-fill, minmax(15.25rem, 1fr));
+    }
+  }
+
+  &-details {
+    display: grid;
+    column-gap: clamp(3.5rem, 5vw, 4.5rem);
+    @media (width>71.3125rem) {
+      grid-template-columns: minmax(25rem, 1fr) minmax(25rem, 1.15fr);
+    }
   }
 }
 

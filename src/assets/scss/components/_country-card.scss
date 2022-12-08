@@ -7,7 +7,12 @@
     min-height: 21.25rem;
     background-color: hsl(var(--primary-clr-200));
     border-radius: var(--card-corner);
-    box-shadow: 0.5rem 0.5rem 1rem hsl(var(--primary-clr-500) / 0.175);
+    box-shadow: 0.5rem 0.5rem 1rem hsl(0 0% 0% / 0.2);
+
+    &:hover {
+      scale: 1.05;
+      transition: scale 500ms ease-in-out;
+    }
 
     &-body {
       padding: 1.25rem 1.25rem 2rem 1.25rem;
@@ -26,8 +31,19 @@
   }
 
   &-name {
+    cursor: pointer;
+    text-decoration: none;
+    color: hsl(var(--primary-clr-500));
+    width: auto;
     margin-bottom: 1rem;
     font-size: var(--fs-500);
     font-weight: var(--fw-800);
+
+    h2 {
+      width: fit-content;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 }

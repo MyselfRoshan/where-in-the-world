@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import SearchFilter from './components/SearchFilter';
 import CountryCard from './components/CountryCard';
 import './assets/scss/main.scss';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import CountryDetails from './components/CountryDetails';
+export const searchTypeContext = createContext();
 
 function App() {
   const [countriesInfo, SetCountriesInfo] = useState([]);
   // Add searchType to all countries when calling tha api
   const [searchType, setSearchType] = useState('all');
   // Add result not found when input is wrong
-  let [status, setStatus] = useState('OK');
+  const [status, setStatus] = useState('OK');
+  const [borderingCountries, setBorderingCountries] = useState([]);
 
   useEffect(() => {
     const baseUrl = 'https://restcountries.com/';
@@ -22,7 +24,11 @@ function App() {
       if (response.ok) {
         setStatus(response.statusText);
         const data = await response.json();
-        SetCountriesInfo(data);
+        if (searchType.includes('alpha?codes=')) {
+          setBorderingCountries(data);
+        } else {
+          SetCountriesInfo(data);
+        }
       }
       // else set status ='Not Found' and reject response
       else {
@@ -30,7 +36,7 @@ function App() {
         Promise.reject(response);
       }
     };
-    // Function launches after 0.5 seconds (1500 ms) of the last keystroke
+    // Function launches after 0.1 seconds (100 ms) of the last keystroke
     // On first render you don't want to launch anything
     // Thus, you check if the user typed a query at first
     let apiCallTimer = setTimeout(() => {
@@ -42,50 +48,48 @@ function App() {
     return () => clearTimeout(apiCallTimer);
   }, [searchType]);
 
-  const Countries = countriesInfo.map((countryInfo) => {
-    return (
-      <CountryCard
-        {...countryInfo}
-        // key={countryInfo.flag}
-        // id={countryInfo.flag}
-        // flag={countryInfo.flags.png}
-        // name={countryInfo.name.common}
-        // population={countryInfo.population}
-        // region={countryInfo.region}
-        // capital={countryInfo.capital}
-      />
-    );
+  const Countries = countriesInfo.map((countryInfo, index) => {
+    return <CountryCard key={index} {...countryInfo} />;
   });
   return (
-    <div className="container">
-      <Navbar />
-      <main className="grid-container">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <SearchFilter setSearchType={setSearchType} />
-                <div className="grid-container-card">
-                  {
-                    // If status is 'OK' shows all the country else show status message
-                    status === 'OK' ? (
-                      Countries
-                    ) : (
-                      <span className="stat">"{status}"</span>
-                    )
-                  }
-                </div>
-              </>
-            }
-          ></Route>
-          <Route
-            path="/CountryDetails"
-            element={<CountryDetails key={useLocation.key} />}
-          ></Route>
-        </Routes>
-      </main>
-    </div>
+    <>
+      <searchTypeContext.Provider value={setSearchType}>
+        <div className="container">
+          <Navbar />
+          <main className="grid-container">
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <>
+                    <SearchFilter setSearchType={setSearchType} />
+                    <div className="grid-container-card">
+                      {
+                        // If status is 'OK' shows all the country else show status message
+                        status === 'OK' ? (
+                          Countries
+                        ) : (
+                          <span className="stat">"{status}"</span>
+                        )
+                      }
+                    </div>
+                  </>
+                }
+              ></Route>
+              <Route
+                path="/CountryDetails"
+                element={
+                  <CountryDetails
+                    key={useLocation.key}
+                    borderingCountries={borderingCountries}
+                  />
+                }
+              ></Route>
+            </Routes>
+          </main>
+        </div>
+      </searchTypeContext.Provider>
+    </>
   );
 }
 
