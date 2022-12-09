@@ -31,11 +31,11 @@ Users should be able to:
 
 ### `Home` Page Preview
 
-![](public\screenshots\where-inthe-world-home.png)
+![](public/screenshots/where-inthe-world-home.png)
 
 ### `Details` Page Preview
 
-![](public\screenshots\where-inthe-world-details.png)
+![](public/screenshots/where-inthe-world-details.png)
 
 ### Links
 
@@ -106,8 +106,7 @@ Learned `useLocation hook`. `This hook returns the current location object. This
     element={...}
   ></Route>
   <Route
-    path="/CountryDetails"
-    element={...}
+    path="/CountryDetails"    element={...}
   ></Route>
 </Routes>
 

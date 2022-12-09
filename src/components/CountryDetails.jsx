@@ -73,7 +73,7 @@ function CountryDetails(props) {
       <img
         className="country-details__flag"
         src={countryDetailObj.flag}
-        alt={countryDetailObj.name.common}
+        alt={`${countryDetailObj.name.common} flag`}
       />
       <div className="country-details__body">
         <h2>{countryDetailObj.name.common}</h2>

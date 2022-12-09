@@ -10,6 +10,7 @@ function SearchFilter({ setSearchType }) {
   }
 
   function regionSearch(region) {
+    if (region === 'All Region') region = 'all';
     region === 'all' ? setSearchType('all') : setSearchType(`region/${region}`);
   }
 
@@ -42,9 +43,12 @@ function SearchFilter({ setSearchType }) {
         <div
           className={`filter-items ${regionFilter.itemsStatus}`}
           onClick={(e) => (
-            regionSearch(e.target.textContent), (regionFilter.itemsStatus = '')
+            regionSearch(e.target.textContent),
+            (regionFilter.itemsStatus = ''),
+            (regionFilter.icon = 'expand_more')
           )}
         >
+          <span className="filter-item">All Region</span>
           <span className="filter-item">Africa</span>
           <span className="filter-item">America</span>
           <span className="filter-item">Asia</span>
