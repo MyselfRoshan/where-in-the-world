@@ -30,11 +30,11 @@ function CountryDetails(props) {
   const languages = Object.values(languageObj).map((item, index) => (
     <Language key={index} number={index} name={item} />
   ));
-  // Ror bordering countries
+  // For bordering countries
   let borderingCountries;
   if (countryDetailObj.borders === undefined) {
   } else {
-    // Fectch bordering countries name from borders code
+    // Converting borderingcountry code name to string separated by comma
     let countryCodes = '';
     countryDetailObj.borders.forEach((countryCode, index) =>
       !index
@@ -73,7 +73,7 @@ function CountryDetails(props) {
       <img
         className="country-details__flag"
         src={countryDetailObj.flag}
-        alt=""
+        alt={countryDetailObj.name.common}
       />
       <div className="country-details__body">
         <h2>{countryDetailObj.name.common}</h2>
