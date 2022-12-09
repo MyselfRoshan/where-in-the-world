@@ -39,7 +39,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [FrontendMentor](https://your-solution-url.com)
+- Solution URL: [FrontendMentor](https://www.frontendmentor.io/solutions/rest-countries-api-with-color-theme-switcher-OG64K6ZrGb)
 - Live Site URL: [where-in-the-world?](https://where-in-the-world-taupe.vercel.app/)
 
 ## My process
