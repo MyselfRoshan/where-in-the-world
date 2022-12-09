@@ -7,11 +7,13 @@ function Navbar() {
   const [theme, setTheme] = useState({ name: 'Light', icon: 'light_mode' });
   const localStorage = window.localStorage;
   useEffect(() => {
-    const name = localStorage.getItem('globalTheme');
-    const icon = localStorage.getItem('globalThemeIcon');
-    setTheme({ name: name, icon: icon });
+    if (localStorage.getItem('globalTheme') === null) {
+    } else {
+      const name = localStorage.getItem('globalTheme');
+      const icon = localStorage.getItem('globalThemeIcon');
+      setTheme({ name: name, icon: icon });
+    }
   }, []);
-  console.log(theme);
   function themeToggler() {
     if (theme.name === 'Light') {
       localStorage.setItem('globalTheme', 'Dark');
