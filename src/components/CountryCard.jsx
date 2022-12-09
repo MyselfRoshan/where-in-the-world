@@ -17,7 +17,11 @@ function CountryCard(props) {
   return (
     <article className="country-card" id={props.flag}>
       <Link to="/CountryDetails" state={countryDetailsObj}>
-        <img className="country-flag" src={props.flags.png} alt="" />
+        <img
+          className="country-flag"
+          src={props.flags.png}
+          alt={`${props.name.common} flag`}
+        />
       </Link>
       <div className="country-card-body">
         <Link

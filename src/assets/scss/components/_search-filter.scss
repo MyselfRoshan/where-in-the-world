@@ -87,10 +87,10 @@
     padding: 0.75rem 0;
     gap: 0.5rem;
     z-index: 1;
-    bottom: -11.7rem;
+    bottom: -13.7rem;
     opacity: 0;
     translate: 0% -300%;
-    transition: translate 500ms ease-in-out, opacity 300ms ease-in-out;
+    transition: translate 500ms ease-in-out, opacity 300ms ease-in-out 0s;
   }
 
   &-item {

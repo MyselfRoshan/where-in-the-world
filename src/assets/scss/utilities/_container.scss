@@ -23,11 +23,11 @@
 
   &-card {
     display: grid;
-    gap: 2rem;
+    gap: 4rem 3rem;
     place-items: center;
     margin-block: 2.5rem;
     @media (width>39.687rem) {
-      grid-template-columns: repeat(auto-fill, minmax(15.25rem, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(15.5rem, 1fr));
     }
   }
 
