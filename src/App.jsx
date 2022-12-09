@@ -33,7 +33,8 @@ function App() {
       // else set status ='Not Found' and reject response
       else {
         setStatus(response.statusText);
-        Promise.reject(response);
+        const rejected = Promise.reject(response);
+        rejected.catch((error) => error);
       }
     };
     // Function launches after 0.1 seconds (100 ms) of the last keystroke
