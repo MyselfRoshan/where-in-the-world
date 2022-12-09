@@ -1,6 +1,6 @@
 @use '../abstracts/variables' as *;
 
-:root:has(.Light) {
+:root {
   // Colors
   @each $mode, $colors in $theme {
     @if $mode == light {

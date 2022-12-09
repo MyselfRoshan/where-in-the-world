@@ -49,7 +49,7 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-image: url('/src/assets/icons/arrow-down.svg');
+  // background-image: url('/src/assets/icons/arrow-down.svg');
   background-position-x: 97%;
   background-position-y: center;
   background-size: 25px;
@@ -64,6 +64,6 @@
   font-weight: var(--fw-300);
 
   &:hover {
-    background-image: url('/src/assets/icons/arrow-up.svg');
+    // background-image: url('/src/assets/icons/arrow-up.svg');
   }
 }
