@@ -8,12 +8,12 @@
     background-color: hsl(var(--primary-clr-200));
     border-radius: var(--card-corner);
     box-shadow: 0.5rem 0.5rem 1rem hsl(0 0% 0% / 0.2);
+    position: relative;
 
     &:hover {
       scale: 1.05;
       transition: scale 500ms ease-in-out;
     }
-
     &-body {
       padding: 1.25rem 1.25rem 2rem 1.25rem;
     }
