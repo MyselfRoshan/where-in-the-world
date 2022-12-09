@@ -31,11 +31,11 @@ Users should be able to:
 
 ### `Home` Page Preview
 
-![](public\screenshots\where-inthe-world-home.png)
+![](public/screenshots/where-inthe-world-home.png)
 
 ### `Details` Page Preview
 
-![](public\screenshots\where-inthe-world-details.png)
+![](public/screenshots/where-inthe-world-details.png)
 
 ### Links
 
