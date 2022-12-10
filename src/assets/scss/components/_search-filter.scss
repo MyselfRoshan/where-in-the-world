@@ -11,24 +11,28 @@
     position: relative;
     box-shadow: 0.5rem 0.5rem 1rem hsl(0 0% 0% / 0.125);
     border-radius: 100vh;
+
+    // @media (width<=34.375rem) {
+    //   min-width: 95%;
+    // }
   }
 
   &-icon {
     position: absolute;
-    top: 8px;
+    top: 10px;
     left: 10px;
     color: hsl(var(--primary-clr-400));
   }
 
   &-bar {
-    height: 2.5rem;
-    width: max(18.5rem, 35vw);
-    max-width: 32rem;
+    height: 2.75rem;
     text-indent: 2.45rem;
     border: none;
     border-radius: 100vh;
     background-color: hsl(var(--primary-clr-200));
     color: hsl(var(--primary-clr-400));
+    max-width: 32rem;
+    width: max(16.5rem, 37vw);
 
     &::placeholder {
       color: hsl(var(--primary-clr-400));
@@ -56,7 +60,7 @@
   }
 
   & > * {
-    width: 12rem;
+    width: var(--width, 12rem);
     background-color: hsl(var(--primary-clr-200));
     color: hsl(var(--primary-clr-500));
     border: none;
@@ -68,6 +72,11 @@
   }
 
   &-btn {
+    @media (width< 36rem) {
+      --width: 100%;
+      --filter-display: block;
+      padding: 0.75rem;
+    }
     cursor: pointer;
     align-items: center;
     justify-content: space-between;
@@ -76,6 +85,15 @@
     &:hover {
       scale: 1.1;
       transition: scale 400ms ease;
+    }
+
+    & > span:nth-last-of-type(2) {
+      display: var(--filter-display, none);
+    }
+    & > span:is(:not([class]), :last-of-type) {
+      @media (width< 36rem) {
+        display: none;
+      }
     }
   }
 
@@ -91,6 +109,10 @@
     opacity: 0;
     translate: 0% -300%;
     transition: translate 500ms ease-in-out, opacity 300ms ease-in-out 0s;
+
+    @media (width< 36rem) {
+      right: 0;
+    }
   }
 
   &-item {
