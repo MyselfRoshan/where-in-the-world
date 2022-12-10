@@ -37,7 +37,8 @@ function SearchFilter({ setSearchType }) {
       </div>
       <div className="filter">
         <button className="filter-btn" onClick={toggleFilterItems}>
-          Filter by Region
+          <span>Filter by Region</span>
+          <span className="material-icons">filter_list</span>
           <span className="material-icons">{regionFilter.icon}</span>
         </button>
         <div
