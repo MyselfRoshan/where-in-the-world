@@ -1,6 +1,6 @@
 @use '../abstracts/variables' as *;
 
-:root {
+.Light{
   // Colors
   @each $mode, $colors in $theme {
     @if $mode == light {
@@ -18,8 +18,7 @@
     --fw-#{$weight}: #{$value};
   }
 }
-
-:root:has(.Dark) {
+.Dark {
   // Colors
   @each $mode, $colors in $theme {
     @if $mode == dark {
@@ -36,4 +35,8 @@
   @each $weight, $value in $font-weight {
     --fw-#{$weight}: #{$value};
   }
+}
+
+*{
+  transition: background 500ms ease 0s,color 1500ms ease 0s;
 }
