@@ -51,12 +51,24 @@ function App() {
 
   const Countries = countriesInfo.map((countryInfo, index) => {
     return <CountryCard key={index} {...countryInfo} />;
+    
   });
+  // Theme Setup
+  const [theme, setTheme] = useState({ name: 'Light', icon: 'light_mode' });
+  const localStorage = window.localStorage;
+  useEffect(() => {
+    if (localStorage.getItem('globalTheme') === null) {
+    } else {
+      const name = localStorage.getItem('globalTheme');
+      const icon = localStorage.getItem('globalThemeIcon');
+      setTheme({ name: name, icon: icon });
+    }
+  }, []);
   return (
     <>
       <searchTypeContext.Provider value={setSearchType}>
-        <div className="container">
-          <Navbar />
+        <div className={`container ${theme.name}`}>
+          <Navbar theme={theme} setTheme={setTheme}/>
           <main className="grid-container">
             <Routes>
               <Route

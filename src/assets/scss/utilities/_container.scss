@@ -44,3 +44,7 @@
 .flex-container {
   display: flex;
 }
+.container{
+  background-color: hsl(var(--primary-clr-300));
+  color: hsl(var(--primary-clr-500));
+}

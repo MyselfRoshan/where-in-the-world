@@ -2,29 +2,20 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { searchTypeContext } from '../App';
 
-function Navbar() {
+function Navbar({theme,setTheme}) {
   const setSearchType = useContext(searchTypeContext);
-  const [theme, setTheme] = useState({ name: 'Light', icon: 'light_mode' });
-  const localStorage = window.localStorage;
-  useEffect(() => {
-    if (localStorage.getItem('globalTheme') === null) {
-    } else {
-      const name = localStorage.getItem('globalTheme');
-      const icon = localStorage.getItem('globalThemeIcon');
-      setTheme({ name: name, icon: icon });
+  console.log(theme,setTheme);
+ function themeToggler() {
+      if (theme.name === 'Light') {
+        localStorage.setItem('globalTheme', 'Dark');
+        localStorage.setItem('globalThemeIcon', 'dark_mode');
+        setTheme({ name: 'Dark', icon: 'dark_mode' });
+      } else {
+        localStorage.setItem('globalTheme', 'Light');
+        localStorage.setItem('globalThemeIcon', 'light_mode');
+        setTheme({ name: 'Light', icon: 'light_mode' });
+      }
     }
-  }, []);
-  function themeToggler() {
-    if (theme.name === 'Light') {
-      localStorage.setItem('globalTheme', 'Dark');
-      localStorage.setItem('globalThemeIcon', 'dark_mode');
-      setTheme({ name: 'Dark', icon: 'dark_mode' });
-    } else {
-      localStorage.setItem('globalTheme', 'Light');
-      localStorage.setItem('globalThemeIcon', 'light_mode');
-      setTheme({ name: 'Light', icon: 'light_mode' });
-    }
-  }
   return (
     <header>
       <div className="grid-container">
@@ -34,7 +25,7 @@ function Navbar() {
           </Link>
 
           <button
-            className={`theme-toggler ${theme.name}`}
+            className={`theme-toggler`}
             onClick={themeToggler}
           >
             <span className="material-icons">{theme.icon}</span>
