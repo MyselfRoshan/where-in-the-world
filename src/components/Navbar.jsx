@@ -7,12 +7,8 @@ function Navbar({theme,setTheme}) {
   console.log(theme,setTheme);
  function themeToggler() {
       if (theme.name === 'Light') {
-        localStorage.setItem('globalTheme', 'Dark');
-        localStorage.setItem('globalThemeIcon', 'dark_mode');
         setTheme({ name: 'Dark', icon: 'dark_mode' });
       } else {
-        localStorage.setItem('globalTheme', 'Light');
-        localStorage.setItem('globalThemeIcon', 'light_mode');
         setTheme({ name: 'Light', icon: 'light_mode' });
       }
     }
