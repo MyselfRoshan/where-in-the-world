@@ -1,32 +1,33 @@
-import React, { createContext, useEffect, useState } from 'react';
-import Navbar from './components/Navbar';
-import SearchFilter from './components/SearchFilter';
-import CountryCard from './components/CountryCard';
-import './assets/scss/main.scss';
-import { Routes, Route, useLocation } from 'react-router-dom';
-import CountryDetails from './components/CountryDetails';
+import React, { createContext, useEffect, useState } from "react";
+import Navbar from "./components/Navbar";
+import SearchFilter from "./components/SearchFilter";
+import CountryCard from "./components/CountryCard";
+import "./assets/scss/main.scss";
+import { Routes, Route, useLocation } from "react-router-dom";
+import CountryDetails from "./components/CountryDetails";
 export const searchTypeContext = createContext();
 
 function App() {
   const [countriesInfo, SetCountriesInfo] = useState([]);
   // Add searchType to all countries when calling tha api
-  const [searchType, setSearchType] = useState('all');
+  const [searchType, setSearchType] = useState("all");
   // Add result not found when input is wrong
-  const [status, setStatus] = useState('OK');
+  const [status, setStatus] = useState("OK");
   const [borderingCountries, setBorderingCountries] = useState([]);
 
   useEffect(() => {
-    const baseUrl = 'https://restcountries.com/';
-    const version = 'v3.1';
+    const baseUrl = "https://restcountries.com/";
+    const version = "v3.1";
     const getData = async function getCountriesInfo() {
       const response = await fetch(`${baseUrl}${version}/${searchType}`);
       // If response.ok is true status='OK' and retrive response.json() and set it to countriesinfo
       if (response.ok) {
         setStatus(response.statusText);
         const data = await response.json();
-        if (searchType.includes('alpha?codes=')) {
+        if (searchType.includes("alpha?codes=")) {
           setBorderingCountries(data);
         } else {
+          console.log(data);
           SetCountriesInfo(data);
         }
       }
@@ -51,24 +52,24 @@ function App() {
 
   const Countries = countriesInfo.map((countryInfo, index) => {
     return <CountryCard key={index} {...countryInfo} />;
-    
   });
   // Theme Setup
-  const [theme, setTheme] = useState({ name: 'Light', icon: 'light_mode' });
-  const localStorage = window.localStorage;
+  // Note: ()=> lazily initialize the state.
+  const [theme, setTheme] = useState(
+    () =>
+      JSON.parse(localStorage.getItem("theme")) || {
+        name: "Light",
+        icon: "light_mode",
+      },
+  );
   useEffect(() => {
-    if (localStorage.getItem('globalTheme') === null) {
-    } else {
-      const name = localStorage.getItem('globalTheme');
-      const icon = localStorage.getItem('globalThemeIcon');
-      setTheme({ name: name, icon: icon });
-    }
-  }, []);
+    localStorage.setItem("theme", JSON.stringify(theme));
+  }, [theme]);
   return (
     <>
       <searchTypeContext.Provider value={setSearchType}>
         <div className={`container ${theme.name}`}>
-          <Navbar theme={theme} setTheme={setTheme}/>
+          <Navbar theme={theme} setTheme={setTheme} />
           <main className="grid-container">
             <Routes>
               <Route
@@ -79,7 +80,7 @@ function App() {
                     <div className="grid-container-card">
                       {
                         // If status is 'OK' shows all the country else show status message
-                        status === 'OK' ? (
+                        status === "OK" ? (
                           Countries
                         ) : (
                           <span className="stat">"{status}"</span>
